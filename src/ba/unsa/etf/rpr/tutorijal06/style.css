@@ -1,0 +1,17 @@
+#window {
+    -fx-background-color: lightblue;
+}
+
+.validBox {
+    -fx-control-inner-background: greenyellow;
+}
+
+.invalidBox {
+    -fx-control-inner-background: lightpink;
+}
+
+/*.groupBox {
+    -fx-border-color: lightGrey;
+    -fx-border-width: 2;
+    -fx-border-radius: 2px;
+}*/
