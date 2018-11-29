@@ -93,6 +93,30 @@ public class Controller implements Initializable {
                 }
             }
         });
+        jmbg.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String o, String n) {
+                if (validanJMBG(n)) {
+                    jmbg.getStyleClass().removeAll("invalidField");
+                    jmbg.getStyleClass().add("validField");
+                } else {
+                    jmbg.getStyleClass().removeAll("validField");
+                    jmbg.getStyleClass().add("invalidField");
+                }
+            }
+        });
+        eMail.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String o, String n) {
+                if (validanEMail(n)) {
+                    eMail.getStyleClass().removeAll("invalidField");
+                    eMail.getStyleClass().add("validField");
+                } else {
+                    eMail.getStyleClass().removeAll("validField");
+                    eMail.getStyleClass().add("invalidField");
+                }
+            }
+        });
     }
 
     public void potvrdaUpisa(ActionEvent actionEvent) {
@@ -145,6 +169,32 @@ public class Controller implements Initializable {
     }
     private boolean validanJMBG(String n) {
         if (n.length() != 13) return false;
+        return true;
+    }
+    private boolean validanEMail(String n) {
+        if (!n.contains("@")) return false;
+        if (!n.contains(".")) return false;
+        boolean imaTackePoslijeLudogA = false;
+        int i = 0;
+        for (i = 0; i < n.length(); i++) {
+            if (n.charAt(i) != '@') continue;
+            else break;
+        }
+        i++;
+        int j = i;
+        while (j < n.length()) {
+            if (n.charAt(j) == '@') return false;
+            j++;
+        }
+        while (i < n.length()) {
+            if (n.charAt(i) == '.') {
+                imaTackePoslijeLudogA = true;
+                break;
+            }
+            i++;
+        }
+        if (!imaTackePoslijeLudogA) return false;
+        if (!Character.isLetter(n.charAt(n.length() - 1))) return false;
         return true;
     }
 }
