@@ -117,6 +117,30 @@ public class Controller implements Initializable {
                 }
             }
         });
+        kontaktAdresa.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String o, String n) {
+                if (validnaAdresa(n)) {
+                    kontaktAdresa.getStyleClass().removeAll("invalidField");
+                    kontaktAdresa.getStyleClass().add("validField");
+                } else {
+                    kontaktAdresa.getStyleClass().removeAll("validField");
+                    kontaktAdresa.getStyleClass().add("invalidField");
+                }
+            }
+        });
+        kontaktTelefon.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String o, String n) {
+                if (validanTelefonskiBroj(n)) {
+                    kontaktTelefon.getStyleClass().removeAll("invalidField");
+                    kontaktTelefon.getStyleClass().add("validField");
+                } else {
+                    kontaktTelefon.getStyleClass().removeAll("validField");
+                    kontaktTelefon.getStyleClass().add("invalidField");
+                }
+            }
+        });
     }
 
     public void potvrdaUpisa(ActionEvent actionEvent) {
@@ -172,6 +196,7 @@ public class Controller implements Initializable {
         return true;
     }
     private boolean validanEMail(String n) {
+        if (n.equals("")) return false;
         if (!n.contains("@")) return false;
         if (!n.contains(".")) return false;
         boolean imaTackePoslijeLudogA = false;
@@ -195,6 +220,12 @@ public class Controller implements Initializable {
         }
         if (!imaTackePoslijeLudogA) return false;
         if (!Character.isLetter(n.charAt(n.length() - 1))) return false;
+        return true;
+    }
+    private boolean validnaAdresa(String n) {
+        return true;
+    }
+    private boolean validanTelefonskiBroj(String n) {
         return true;
     }
 }
