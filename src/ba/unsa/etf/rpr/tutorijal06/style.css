@@ -1,12 +1,12 @@
 #window {
-    -fx-background-color: lightblue;
+    -fx-background-color: white;
 }
 
-.validBox {
+.validField {
     -fx-control-inner-background: greenyellow;
 }
 
-.invalidBox {
+.invalidField {
     -fx-control-inner-background: lightpink;
 }
 

@@ -11,7 +11,7 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setResizable(false);
         primaryStage.setTitle("Formular za unos studenta");
