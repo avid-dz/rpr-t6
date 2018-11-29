@@ -145,11 +145,6 @@ public class Controller implements Initializable {
     }
     private boolean validanJMBG(String n) {
         if (n.length() != 13) return false;
-        /*try {
-            Integer.parseInt(n);
-        } catch (Exception e) { //  ako uopste ne moze u int
-            return false;
-        }*/
         return true;
     }
 }
