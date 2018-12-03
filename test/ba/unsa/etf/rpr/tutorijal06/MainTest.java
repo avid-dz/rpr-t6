@@ -139,4 +139,127 @@ class MainTest {
                 }
         );
     }
+
+    @Test
+    public void testPoljaZaJMBG(FxRobot robot) {
+        TextField jmbgField = robot.lookup("#jmbg").queryAs(TextField.class);
+        robot.clickOn("#jmbg");
+        assertAll("Test vise varijanti ispravnog i neispravnog maticnog broja",
+                () -> {
+                    robot.write("3005998130002");
+                    assertTrue(jmbgField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.write(" ");
+                    assertTrue(jmbgField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    robot.type(KeyCode.BACK_SPACE);
+                    robot.write("+slova");
+                    assertTrue(jmbgField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    for (int i = 0; i < 6; i++) robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(jmbgField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.write("321_");
+                    assertTrue(jmbgField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(jmbgField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (jmbgField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("sveSlova");
+                    assertTrue(jmbgField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (jmbgField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(jmbgField.getStyleClass().contains("invalidField"));
+                }
+        );
+    }
+
+    @Test
+    public void testPoljaZaAdresu(FxRobot robot) {
+        TextField adresaField = robot.lookup("#kontaktAdresa").queryAs(TextField.class);
+        robot.clickOn("#kontaktAdresa");
+        assertAll("Test vise varijanti ispravne i neispravne kontakt adrese",
+                () -> {
+                    robot.write("Kromolj 64");
+                    assertTrue(adresaField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.write(" ");
+                    assertTrue(adresaField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(adresaField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    while (adresaField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("Zmaja od Bosne b.b.");
+                    assertTrue(adresaField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    while (adresaField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(adresaField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.write("643");
+                    assertTrue(adresaField.getStyleClass().contains("invalidField"));
+                }
+        );
+    }
+
+    @Test
+    public void testPoljaZaTelefon(FxRobot robot) {
+        TextField telefonField = robot.lookup("#kontaktTelefon").queryAs(TextField.class);
+        robot.clickOn("#kontaktTelefon");
+        assertAll("Test vise varijanti ispravnog i neispravnog kontakt telefona",
+                () -> {
+                    robot.write("062/942-872");
+                    assertTrue(telefonField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.write(" ");
+                    assertTrue(telefonField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(telefonField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    while (telefonField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("slova umjesto broja");
+                    assertTrue(telefonField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (telefonField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(telefonField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.write("0622/942-872");
+                    assertTrue(telefonField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (telefonField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("062/9422-872");
+                    assertTrue(telefonField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (telefonField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("062/942-8722");
+                    assertTrue(telefonField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    robot.type(KeyCode.BACK_SPACE);
+                    robot.write("_.");
+                    assertTrue(telefonField.getStyleClass().contains("invalidField"));
+                }
+        );
+    }
 }
