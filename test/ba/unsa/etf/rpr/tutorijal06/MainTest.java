@@ -262,4 +262,44 @@ class MainTest {
                 }
         );
     }
+
+    @Test
+    public void testPoljaZaEmail(FxRobot robot) {
+        TextField eMailField = robot.lookup("#eMail").queryAs(TextField.class);
+        robot.clickOn("#eMail");
+        assertAll("Test vise varijanti ispravnog i neispravnog emaila",
+                () -> {
+                    robot.write("dbrdar1@etf.unsa.ba");
+                    assertTrue(eMailField.getStyleClass().contains("validField"));
+                },
+                () -> {
+                    while (eMailField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("slova bez ludog a");
+                    assertTrue(eMailField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (eMailField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    assertTrue(eMailField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    robot.write("0622/942-872");
+                    assertTrue(eMailField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (eMailField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("dbrdar1@etf@unsa.ba");
+                    assertTrue(eMailField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (eMailField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("dbrdar1.etf.unsa.ba");
+                    assertTrue(eMailField.getStyleClass().contains("invalidField"));
+                },
+                () -> {
+                    while (eMailField.getText().length() != 0) robot.type(KeyCode.BACK_SPACE);
+                    robot.write("dbrdar1_etf@etfunsaba");
+                    assertTrue(eMailField.getStyleClass().contains("invalidField"));
+                }
+        );
+    }
 }
